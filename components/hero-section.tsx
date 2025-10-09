@@ -1,0 +1,145 @@
+import { Button } from "@/components/ui/button"
+import { Download, Play, Zap, Shield, Target } from "lucide-react"
+
+export function HeroSection() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src="/dark-interrogation-room-with-dramatic-spotlight--c.jpg"
+          alt="Interrogation room background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/60 to-background/95" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10" />
+      </div>
+
+      <div className="particles-container">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="particle floating-particles"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 6}s`,
+              animationDuration: `${8 + Math.random() * 4}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="absolute top-20 left-10 w-32 h-32 border-2 border-primary/30 rounded-full epic-glow animate-delay-100" />
+      <div className="absolute bottom-32 right-16 w-24 h-24 border-2 border-secondary/30 rounded-full epic-glow-blue animate-delay-300" />
+      <div className="absolute top-1/2 left-20 w-2 h-20 bg-gradient-to-b from-primary to-transparent animate-delay-500" />
+      <div className="absolute top-1/3 right-32 w-2 h-16 bg-gradient-to-b from-secondary to-transparent animate-delay-700" />
+
+      <div className="relative z-10 text-center px-4 max-w-7xl mx-auto">
+        <div className="mb-12 epic-slide-in">
+          <div className="relative inline-block">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-40 h-1 bg-gradient-to-r from-transparent via-primary to-transparent" />
+            <h1 className="text-8xl md:text-[12rem] font-black text-shimmer mb-2 tracking-tighter text-balance leading-none">
+              PROYECTO
+            </h1>
+            <h1 className="text-8xl md:text-[12rem] font-black epic-gradient-text mb-6 tracking-tighter text-balance leading-none">
+              UMBRAL
+            </h1>
+            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-40 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent" />
+          </div>
+        </div>
+
+        <div className="epic-glass rounded-3xl p-10 mb-16 max-w-4xl mx-auto epic-border epic-fade-up animate-delay-200">
+          <div className="flex items-center justify-center mb-6">
+            <div className="w-12 h-1 bg-primary mr-4" />
+            <Zap className="w-8 h-8 text-primary" />
+            <div className="w-12 h-1 bg-primary ml-4" />
+          </div>
+
+          <p className="text-3xl md:text-4xl text-foreground font-bold mb-6 italic text-shimmer">
+            "Entre la rehabilitación o la perdición."
+          </p>
+
+          <div className="w-48 h-1 bg-gradient-to-r from-primary via-secondary to-primary mx-auto mb-8 epic-glow" />
+
+          <p className="text-xl md:text-2xl text-foreground/95 leading-relaxed mb-6">
+            Un programa secreto del gobierno mexicano donde el Detective Alejandro Camarena confronta al narcotraficante
+            <span className="text-primary font-bold"> "El Jaguar" </span>
+            con sus propios crímenes.
+          </p>
+
+          <p className="text-lg md:text-xl text-secondary font-semibold">
+            Cada sala es un espejo de sus actos. Cada decisión define el destino.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20 epic-scale-in animate-delay-400">
+          <Button
+            size="lg"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground text-2xl px-16 py-8 font-black rounded-2xl shadow-2xl epic-hover epic-glow group relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Download className="mr-4 h-8 w-8 relative z-10" />
+            <span className="relative z-10">DESCARGAR DEMO</span>
+          </Button>
+
+          <Button
+            variant="outline"
+            size="lg"
+            className="border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground text-2xl px-16 py-8 font-black rounded-2xl epic-hover epic-glow-blue group relative overflow-hidden bg-transparent"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-secondary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Play className="mr-4 h-8 w-8 relative z-10" />
+            <span className="relative z-10">VER TRAILER</span>
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto epic-fade-up animate-delay-600">
+          <div className="epic-glass rounded-2xl p-8 text-center epic-hover group">
+            <div className="flex items-center justify-center mb-4">
+              <Target className="w-12 h-12 text-primary group-hover:text-secondary transition-colors duration-300" />
+            </div>
+            <div className="text-5xl font-black text-primary mb-3 group-hover:text-shimmer transition-all duration-300">
+              4
+            </div>
+            <div className="text-lg text-foreground font-semibold uppercase tracking-wider">Salas Únicas</div>
+            <div className="w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent mt-4 group-hover:via-secondary transition-all duration-300" />
+          </div>
+
+          <div className="epic-glass rounded-2xl p-8 text-center epic-hover group">
+            <div className="flex items-center justify-center mb-4">
+              <Shield className="w-12 h-12 text-secondary group-hover:text-primary transition-colors duration-300" />
+            </div>
+            <div className="text-5xl font-black text-secondary mb-3 group-hover:text-shimmer transition-all duration-300">
+              2
+            </div>
+            <div className="text-lg text-foreground font-semibold uppercase tracking-wider">Personajes</div>
+            <div className="w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent mt-4 group-hover:via-primary transition-all duration-300" />
+          </div>
+
+          <div className="epic-glass rounded-2xl p-8 text-center epic-hover group">
+            <div className="flex items-center justify-center mb-4">
+              <Zap className="w-12 h-12 text-primary group-hover:text-secondary transition-colors duration-300" />
+            </div>
+            <div className="text-5xl font-black text-primary mb-3 group-hover:text-shimmer transition-all duration-300">
+              ∞
+            </div>
+            <div className="text-lg text-foreground font-semibold uppercase tracking-wider">Posibilidades</div>
+            <div className="w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent mt-4 group-hover:via-secondary transition-all duration-300" />
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0">
+        <div className="h-40 bg-gradient-to-t from-background via-background/50 to-transparent" />
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 epic-fade-up animate-delay-800">
+          <div className="w-8 h-14 border-3 border-primary rounded-full flex justify-center epic-glow relative">
+            <div className="w-2 h-4 bg-primary rounded-full mt-3 floating-particles" />
+            <div className="absolute -left-8 top-1/2 w-6 h-0.5 bg-gradient-to-r from-transparent to-primary" />
+            <div className="absolute -right-8 top-1/2 w-6 h-0.5 bg-gradient-to-l from-transparent to-primary" />
+          </div>
+          <p className="text-primary text-sm font-semibold mt-3 tracking-wider">SCROLL</p>
+        </div>
+      </div>
+    </section>
+  )
+}
