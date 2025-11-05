@@ -12,10 +12,10 @@ export function Footer() {
               <div>
                 <h3 className="text-xl font-bold text-primary mb-4">EQUIPO DE DESARROLLO</h3>
                 <div className="space-y-2 text-muted-foreground">
-                  <p>Dirección: [Nombre del Director]</p>
-                  <p>Programación: [Equipo de Dev]</p>
-                  <p>Arte: [Equipo de Arte]</p>
-                  <p>Narrativa: [Escritores]</p>
+                  <p>Dirección: Leunam Díaz</p>
+                  <p>Programación: Carlos Díaz</p>
+                  <p>Arte: Valeria Andrade</p>
+                  <p>Narrativa: Rene Germes</p>
                 </div>
               </div>
 

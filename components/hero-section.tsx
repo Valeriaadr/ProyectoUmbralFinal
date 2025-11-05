@@ -8,6 +8,34 @@ export function HeroSection() {
   const [showQuestion, setShowQuestion] = useState(false)
   const [result, setResult] = useState<"idle" | "win" | "lose">("idle")
   const videoRef = useRef<HTMLVideoElement | null>(null)
+  
+  // helper: scroll to section#trailer with retries for cases where target not yet mounted
+  const scrollToTrailer = () => {
+    const tryScroll = () => {
+      const el = document.getElementById("trailer") || document.querySelector("section#trailer")
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" })
+        return true
+      }
+      return false
+    }
+
+    if (tryScroll()) return
+
+    const start = Date.now()
+    const maxWait = 2000
+    const id = window.setInterval(() => {
+      if (tryScroll()) {
+        clearInterval(id)
+        return
+      }
+      if (Date.now() - start > maxWait) {
+        clearInterval(id)
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      }
+    }, 100)
+  }
+  
 
   return (
     <>
@@ -110,15 +138,9 @@ export function HeroSection() {
               size="lg"
               className="border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground text-2xl px-16 py-8 font-black rounded-2xl epic-hover epic-glow-blue group relative overflow-hidden bg-transparent"
               onClick={() => {
-                // scroll suave a la sección del trailer (asegúrate que <section id="trailer"> exista en trailer-section.tsx)
-                const el = document.getElementById("trailer")
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth", block: "start" })
-                } else {
-                  // fallback: intentar scroll por nombre de ruta o abrir modal si no se encuentra
-                  window.scrollTo({ top: 0, behavior: "smooth" })
-                }
-              }}
+                  // Scroll suave a la sección del trailer (si existe en la misma página)
+                  scrollToTrailer()
+                }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-secondary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <Play className="mr-4 h-8 w-8 relative z-10" />
@@ -215,16 +237,16 @@ export function HeroSection() {
             <div className="absolute inset-0 z-30 flex items-center justify-center p-6">
               <div className="bg-gradient-to-br from-card/90 to-background/90 backdrop-blur-md border border-primary/20 rounded-2xl p-8 max-w-2xl w-full text-center">
                 <h3 className="text-2xl font-bold mb-4">🕰️ Pregunta</h3>
-                <p className="mb-6">“Este reloj se detuvo a las 3:07, justo cuando tu sicario disparó. Pero hay algo que no encaja, Jaguar. Solo uno de tus hombres podía haber manipulado el tiempo… ¿Quién fue?”</p>
+                <p className="mb-6">¿Quién manipuló el reloj para alterar la escena del crimen?</p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <button
-                    className="px-4 py-3 rounded-lg bg-muted text-foreground/90 border border-primary/10"
+                   className="px-4 py-3 rounded-lg bg-muted text-foreground/90 border border-primary/10"
                     onClick={() => {
                       setResult("win")
                       // explicación solo si responde correcto
                       alert(
-                        'A) “El Mecánico” Lógica: las huellas de aceite, la frase sobre “el motor”, y la mención a relojería apuntan directamente a él.'
+                        'A) “El Mecánico”\\n\\nLógica: las huellas de aceite, la frase sobre “el motor”, y la mención a relojería apuntan directamente a él.'
                       )
                       setTimeout(() => {
                         setShowModal(false)
@@ -293,14 +315,32 @@ export function HeroSection() {
               </div>
             </div>
           )}
+{result === "lose" && (
+  <div className="absolute inset-0 z-40 flex flex-col items-center justify-center">
+    {/* 🎥 Video de derrota */}
+    <video
+      src="/perdiste.mp4"
+      autoPlay
+      playsInline
+      className="w-full h-full object-cover absolute inset-0"
+      onEnded={() => {
+        setShowModal(false)
+        setShowQuestion(false)
+        setResult("idle")
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      }}
+    />
 
-          {result === "lose" && (
-            <div className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none">
-              <div className="text-center text-white">
-                <div className="text-6xl font-black mb-4">Perdiste</div>
-              </div>
-            </div>
-          )}
+    {/* 🔴 Capa roja semitransparente */}
+    <div className="absolute inset-0 bg-red-700/60 backdrop-blur-sm"></div>
+
+    {/* 💀 Texto de derrota */}
+    <div className="text-center text-white z-10 drop-shadow-lg">
+      <div className="text-6xl font-black mb-4 animate-pulse">PERDISTE</div>
+      <p className="text-xl font-semibold">Inténtalo de nuevo...</p>
+    </div>
+  </div>
+)}
         </div>
       )}
     </>
