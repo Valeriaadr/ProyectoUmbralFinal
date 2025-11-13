@@ -241,23 +241,90 @@ export function HeroSection() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <button
-                   className="px-4 py-3 rounded-lg bg-muted text-foreground/90 border border-primary/10"
-                    onClick={() => {
-                      setResult("win")
-                      // explicación solo si responde correcto
-                      alert(
-                        'A) “El Mecánico”\\n\\nLógica: las huellas de aceite, la frase sobre “el motor”, y la mención a relojería apuntan directamente a él.'
-                      )
-                      setTimeout(() => {
-                        setShowModal(false)
-                        setShowQuestion(false)
-                        setResult("idle")
-                        window.scrollTo({ top: 0, behavior: "smooth" })
-                      }, 2200)
-                    }}
-                  >
-                    A) “El Mecánico”
-                  </button>
+  className="px-4 py-3 rounded-lg bg-muted text-foreground/90 border border-primary/10 relative"
+  onClick={() => {
+    setResult("win")
+
+    // Crear alerta personalizada grande
+    const alertBox = document.createElement("div")
+    alertBox.innerHTML = `
+      <div id="customAlert" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.5);
+        z-index: 9999;
+        animation: fadeIn 0.3s ease;
+      ">
+        <div style="
+          background: #fff;
+          color: #333;
+          padding: 40px 50px;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+          width: 90%;
+          max-width: 500px;
+          text-align: center;
+          font-family: system-ui, sans-serif;
+          animation: popIn 0.35s ease;
+        ">
+          <h3 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 16px; color: #16a34a;">
+            ✅ ¡Respuesta correcta!
+          </h3>
+          <p style="font-size: 1rem; line-height: 1.6; color: #444; margin-bottom: 25px;">
+            A) “El Mecánico”<br><br>
+            Lógica: las huellas de aceite, la frase sobre “el motor”, y la mención a relojería apuntan directamente a él.
+          </p>
+          <button id="closeAlert" style="
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.25s, transform 0.1s;
+          ">Aceptar</button>
+        </div>
+      </div>
+
+      <style>
+        @keyframes popIn {
+          from { transform: scale(0.9); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        #closeAlert:hover {
+          background: #15803d;
+          transform: scale(1.03);
+        }
+      </style>
+    `
+
+    document.body.appendChild(alertBox)
+
+    // Cerrar alerta al presionar el botón
+    document.getElementById("closeAlert").onclick = () => {
+      document.getElementById("customAlert").remove()
+      setShowModal(false)
+      setShowQuestion(false)
+      setResult("idle")
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+  }}
+>
+  A) “El Mecánico”
+</button>
+
 
                   <button
                     className="px-4 py-3 rounded-lg bg-muted text-foreground/90 border border-primary/10"
